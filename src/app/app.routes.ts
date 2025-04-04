@@ -1,7 +1,10 @@
-import { Routes } from '@angular/router';
+import { Routes,RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ChatComponent } from './chat/chat.component';
 import { SigninComponent } from './signin/signin.component';
+import { NgModule } from '@angular/core';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
+import { AuthGuard } from './auth.guard.service';
 
 export const routes: Routes = [
 
@@ -12,12 +15,12 @@ export const routes: Routes = [
 
     },
     {
-      path:'home',
-      component:HomeComponent
+      path:'auth-callback',
+      component:AuthCallbackComponent
     },
     {
         path:'chat',
-        component:ChatComponent
+        component:ChatComponent, canActivate: [AuthGuard]
       },
       {
         path:'signin',
@@ -26,3 +29,8 @@ export const routes: Routes = [
 
 
 ];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}

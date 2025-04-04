@@ -1,12 +1,9 @@
 <div class="container">
     <div class="col-md-12 text-center">
         <h1>ChatBot</h1>
-        
-        <!-- Google Sign-In -->
-        <button class="btn btn-danger" (click)="signInWithGoogle()" *ngIf="!user">Sign in with Google</button>
-        <button class="btn btn-secondary" (click)="signOut()" *ngIf="user">Sign Out</button>
 
-        <p *ngIf="user">Welcome, {{ user.displayName }}</p>
+        <!-- Logout Button -->
+        <button class="btn btn-danger float-right" (click)="logout()">Logout</button>
 
         <!-- Display chat messages -->
         <ng-container *ngFor="let message of messages">

@@ -3,7 +3,7 @@ import { ChatService, Message } from '../chat.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service'; // Import AuthService
-import { User } from 'firebase/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -16,16 +16,18 @@ export class ChatComponent implements OnInit {
   value: string = ''; // Fixed: Renamed to match usage in sendMessage()
   user:any = null;
 
-  constructor(private chatService: ChatService, private authService: AuthService) {} // Fixed: Injected ChatService properly
+  constructor(private chatService: ChatService, private authService: AuthService, private router: Router) {} // Fixed: Injected ChatService properly
 
   ngOnInit(): void {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/signin']);
+    }
+
     this.chatService.conversation.subscribe((val) => {
       this.messages = this.messages.concat(val); // Fixed: Syntax error
       
     });
-    this.authService.user$.subscribe(user => {
-      this.user = user;
-    });
+    
     
   }
 
@@ -35,16 +37,13 @@ export class ChatComponent implements OnInit {
       this.value = ''; // Clear input after sending
     }
   }
-  signInWithGoogle() {
-    this.authService.googleSignIn().catch(error => console.log(error));
+  logout() {
+    this.authService.logout();
   }
-
-  signOut() {
-    this.authService.signOut();
-  }
+}
 
   
-}
+
 
 
 
