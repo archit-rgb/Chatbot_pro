@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private googleClientId = 'archits62@gmail.com';
-  private microsoftClientId = 'architsh@interrait.com';
-  private microsoftTenantId = 'YOUR_MICROSOFT_TENANT_ID';
+  private googleClientId = '510913019811-dpic4r3ko2o17puhv37dt5th5koqvpsc.apps.googleusercontent.com';
+  private microsoftClientId = '8bae593b-cba8-464f-ad9f-656673134f38';
+  private microsoftTenantId = '97b32e5c-7d5b-4d8f-8225-c4e35f40ec3b';
   private redirectUri = 'http://localhost:4200/auth-callback';
 
   constructor() {}
