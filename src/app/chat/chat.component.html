@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="col-md-12 text-center">
+        <h1>ChatBot</h1>
+        
+        <!-- Google Sign-In -->
+        <button class="btn btn-danger" (click)="signInWithGoogle()" *ngIf="!user">Sign in with Google</button>
+        <button class="btn btn-secondary" (click)="signOut()" *ngIf="user">Sign Out</button>
+
+        <p *ngIf="user">Welcome, {{ user.displayName }}</p>
+
+        <!-- Display chat messages -->
+        <ng-container *ngFor="let message of messages">
+            <div class="message" [ngClass]="{'from': message.author === 'bot', 'to': message.author === 'user'}">
+                {{ message.content }}
+            </div>
+        </ng-container>
+
+        <div class="col-md-12 text-center mt-3">
+            <!-- Show "Your Message" label only when there are no messages -->
+            <label *ngIf="messages.length === 0; else dialoginfo" for="nameField">
+                Your Message
+            </label>
+
+            <!-- Input field for sending messages -->
+            <input [(ngModel)]="value" (keyup.enter)="sendMessage()" type="text" class="form-control" placeholder="Type your message...">
+
+            <!-- Send button -->
+            <button class="btn btn-primary mt-2" (click)="sendMessage()">Ask</button>
+
+            <!-- Message count -->
+            <ng-template #dialoginfo>
+                <span class="float-right">Total Messages: {{ messages.length }}</span>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
