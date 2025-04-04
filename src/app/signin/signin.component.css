@@ -1,0 +1,79 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Center the container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Card styling */
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 320px;
+}
+
+.card h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Button styling */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.btn i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+/* Google button */
+.google-btn {
+    background: #db4437;
+}
+
+.google-btn:hover {
+    background: #c1351d;
+}
+
+/* Outlook button */
+.outlook-btn {
+    background: #0078d4;
+}
+
+.outlook-btn:hover {
+    background: #005ea6;
+}
+
+/* Divider */
+.divider {
+    margin: 10px 0;
+    color: #aaa;
+    font-size: 14px;
+}
