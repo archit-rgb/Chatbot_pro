@@ -1,33 +1,43 @@
-<div class="container">
-    <div class="col-md-12 text-center">
-        <h1>ChatBot</h1>
-
-        <!-- Logout Button -->
-        <button class="btn btn-danger float-right" (click)="logout()">Logout</button>
-
-        <!-- Display chat messages -->
-        <ng-container *ngFor="let message of messages">
-            <div class="message" [ngClass]="{'from': message.author === 'bot', 'to': message.author === 'user'}">
-                {{ message.content }}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center mb-3">
+                <h1 class="fw-bold">ChatBot</h1>
             </div>
-        </ng-container>
 
-        <div class="col-md-12 text-center mt-3">
-            <!-- Show "Your Message" label only when there are no messages -->
-            <label *ngIf="messages.length === 0; else dialoginfo" for="nameField">
-                Your Message
-            </label>
+            <!-- Logout Button -->
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-danger" (click)="logout()">Logout</button>
+            </div>
 
-            <!-- Input field for sending messages -->
-            <input [(ngModel)]="value" (keyup.enter)="sendMessage()" type="text" class="form-control" placeholder="Type your message...">
+            <!-- Chat Messages -->
+            <div class="card mt-3">
+                <div class="card-body chat-container">
+                    <ng-container *ngFor="let message of messages">
+                        <div class="message p-2 rounded my-2" 
+                             [ngClass]="{'bg-light text-dark': message.author === 'bot', 'bg-primary text-white text-end': message.author === 'user'}">
+                            {{ message.content }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
 
-            <!-- Send button -->
-            <button class="btn btn-primary mt-2" (click)="sendMessage()">Ask</button>
+            <!-- Message Input Section -->
+            <div class="mt-3">
+                <label *ngIf="messages.length === 0; else dialoginfo" class="form-label">
+                    Your Message
+                </label>
 
-            <!-- Message count -->
-            <ng-template #dialoginfo>
-                <span class="float-right">Total Messages: {{ messages.length }}</span>
-            </ng-template>
+                <input [(ngModel)]="value" (keyup.enter)="sendMessage()" type="text" 
+                       class="form-control" placeholder="Type your message...">
+
+                <button class="btn btn-primary mt-2 w-100" (click)="sendMessage()">Ask</button>
+
+                <!-- Message Count -->
+                <ng-template #dialoginfo>
+                    <span class="d-block text-end mt-2">Total Messages: {{ messages.length }}</span>
+                </ng-template>
+            </div>
         </div>
     </div>
 </div>
