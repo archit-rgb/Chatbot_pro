@@ -38,6 +38,11 @@
                     <span class="d-block text-end mt-2">Total Messages: {{ messages.length }}</span>
                 </ng-template>
             </div>
+            <!-- Upload Section -->
+    <div class="mt-4">
+    <label for="fileUpload">Upload CSV/JSON:</label>
+    <input type="file" (change)="handleFileUpload($event)" class="form-control" />
+    </div>
         </div>
     </div>
 </div>

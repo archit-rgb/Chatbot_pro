@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
 export class Message{
@@ -10,38 +11,30 @@ export class Message{
 })
 export class ChatService {
 
-  constructor() { }
   conversation = new Subject<Message[]>();
-  messageMap: any ={
-    "hi":"hello",
-    "Hi":"Hello",
-    "who are you": "I am Chat Bot",
-    "Who are you": "I am Chat Bot",
-    "What is your name": "My name is chatbot",
-    "what is your name": "my name is chatbot",
-    "How old are you": "just born",
-    "how old are you":"just born",
-    "what you do":"i am an AI trained model",
-    "What you do":"i am an AI trained model",
-    "Do you know siri": "She is my friend",
-    "What is angular":"its a framework",
-    "what is angular":"its a framework",
-    "default":"I can't understand"
 
+  constructor(private http: HttpClient) {}
 
-
-  }
-  getBotAnswer(msg:any){
+  getBotAnswer(msg: string) {
     const userMessage = new Message('user', msg);
     this.conversation.next([userMessage]);
-    const botMessage = new Message('bot', this.getBotMessage(msg));
-    setTimeout(() => {
-      this.conversation.next([botMessage]);
-    }, 1500);
-  }
-  getBotMessage(question:any){
-    let answer = this.messageMap[question];
-    return answer || this.messageMap['default']
 
+    this.callLLM(msg).subscribe((res: any) => {
+      const content = res.choices?.[0]?.message?.content || 'No reply';
+      const botMessage = new Message('bot', content);
+      this.conversation.next([botMessage]);
+    });
+  }
+
+  callLLM(message: string) {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer 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`,
+    };
+
+    return this.http.post('https://api.openai.com/v1/chat/completions', {
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: message }],
+    }, { headers });
   }
 }
