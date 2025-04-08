@@ -1,0 +1,37 @@
+.custom-navbar {
+    background: linear-gradient(90deg, #343a40 0%, #212529 100%);
+    padding: 1rem 2rem;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #dcdcdc !important;
+    margin-right: 1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #ffffff !important;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+  }
+  
+  .logout-btn {
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .logout-btn:hover {
+    background-color: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  main {
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 72px); /* Adjust height based on navbar */
+    padding: 2rem;
+  }

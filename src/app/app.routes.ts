@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { AuthGuard } from './auth.guard.service';
 
+
 export const routes: Routes = [
 
     {

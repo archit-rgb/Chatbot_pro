@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ export class AuthService {
   private microsoftClientId = '8bae593b-cba8-464f-ad9f-656673134f38';
   private microsoftTenantId = '97b32e5c-7d5b-4d8f-8225-c4e35f40ec3b';
   private redirectUri = 'http://localhost:4200/auth-callback';
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor() {}
 
@@ -39,6 +42,7 @@ export class AuthService {
     localStorage.removeItem('authToken');
     window.location.href = '/signin'; // Redirect to sign-in page
   }
+  
 }
 
 
