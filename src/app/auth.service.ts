@@ -40,7 +40,7 @@ export class AuthService {
   // Logout
   logout() {
     localStorage.removeItem('authToken');
-    window.location.href = '/signin'; // Redirect to sign-in page
+    window.location.href = '/signin';
   }
   
 }
