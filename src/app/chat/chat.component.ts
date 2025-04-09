@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { ChartType } from 'chart.js';
+import { ChartType,ChartTypeRegistry } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 
 @Component({
@@ -14,9 +14,9 @@ import { NgChartsModule } from 'ng2-charts';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+  chartType: keyof ChartTypeRegistry = 'line';
   chartData: any = [];
   chartLabels: string[] = [];
-  chartType: ChartType = 'radar';
   showChart = false;
   messages: Message[] = [];
   value: string = '';
@@ -24,7 +24,31 @@ export class ChatComponent implements OnInit {
 
   parsedCSVData: any[] = [];
 
-  constructor(private chatService: ChatService, private authService: AuthService, private router: Router) {} // Fixed: Injected ChatService properly
+  constructor(private chatService: ChatService, private authService: AuthService, private router: Router) {}
+
+  updateChartTypeFromPrompt(prompt: string) {
+    const promptLower = prompt.toLowerCase();
+
+    if (promptLower.includes('bar')) {
+      this.chartType = 'bar';
+    } else if (promptLower.includes('line')) {
+      this.chartType = 'line';
+    } else if (promptLower.includes('pie')) {
+      this.chartType = 'pie';
+    } else if (promptLower.includes('doughnut')) {
+      this.chartType = 'doughnut';
+    } else if (promptLower.includes('radar')) {
+      this.chartType = 'radar';
+    } else if (promptLower.includes('polar')) {
+      this.chartType = 'polarArea';
+    } else if (promptLower.includes('bubble')) {
+      this.chartType = 'bubble';
+    } else if (promptLower.includes('scatter')) {
+      this.chartType = 'scatter';
+    } else {
+      this.chartType = 'line'; // fallback
+    }
+  }
 
   ngOnInit(): void {
     if (!this.authService.isAuthenticated()) {
@@ -54,6 +78,8 @@ export class ChatComponent implements OnInit {
       // Send message to bot
       this.chatService.getBotAnswer(fullPrompt);
       this.value = '';
+
+      this.updateChartTypeFromPrompt(userMessage);
   
       // Chart generation logic
       if (hasChartTrigger && this.parsedCSVData.length > 0) {

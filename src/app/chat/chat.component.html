@@ -39,7 +39,7 @@
     <input type="file" (change)="handleFileUpload($event)" class="form-control" />
     </div>
     <div *ngIf="showChart" class="chart-container">
-        <h3>{{ chartData[0]?.label }} Chart</h3>
+        <h3>{{ chartData[0]?.label }} Chart ({{ chartType }})</h3>
         <canvas baseChart
           [data]="{
             labels: chartLabels,
